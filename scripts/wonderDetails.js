@@ -1,24 +1,17 @@
-const API_URL = 'https://www.world-wonders-api.org/v0/wonders';
 const wonderDetailsElement = document.getElementById('wonder-details');
 
 async function fetchWonderDetails() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const wonderIndex = urlParams.get('index'); 
 
-  if (wonderIndex === null) {
-    wonderDetailsElement.innerHTML = "<p>Wonder not found.</p>";
-    return;
-  }
+  const name = getQueryParam("name")
 
   try {
-    const response = await axios.get(API_URL);
+    const response = await axios.get(BASE_URL + "?name=" + name);
     const wonders = response.data;
 
-    if (wonders[wonderIndex]) {
-      displayWonderDetails(wonders[wonderIndex]);
-    } else {
-      wonderDetailsElement.innerHTML = "<p>Wonder not found.</p>";
-    }
+    // Selecting the first returned wonder
+    const target_wonder = wonders[0]
+    displayWonderDetails(target_wonder)
+
   } catch (error) {
     console.error("Error fetching wonder details:", error);
     wonderDetailsElement.innerHTML = "<p>Failed to load wonder details. Please try again later.</p>";
@@ -26,18 +19,21 @@ async function fetchWonderDetails() {
 }
 
 function displayWonderDetails(wonder) {
+
+  const { name, links, summary, location, time_period, build_year } = wonder
+
   let imageHTML = '';
-  if (wonder.links && wonder.links.images && wonder.links.images.length > 0) {
-    imageHTML = `<img src="${wonder.links.images[0]}" alt="${wonder.name}">`; // Display the first image
+  if (links && links.images && links.images.length > 0) {
+    imageHTML = `<img src="${links.images[0]}" alt="${name}">`; // Display the first image
   }
 
   wonderDetailsElement.innerHTML = `
-    <h2>${wonder.name}</h2>
+    <h2>${name}</h2>
     ${imageHTML} <!-- Only display the image if it exists -->
-    <p>${wonder.summary}</p>
-    <p>Location: ${wonder.location}</p>
-    <p>Time Period: ${wonder.time_period}</p>
-    <p>Build Year: ${wonder.build_year}</p>
+    <p>${summary}</p>
+    <p>Location: ${location}</p>
+    <p>Time Period: ${time_period}</p>
+    <p>Build Year: ${build_year}</p>
   `;
 }
 

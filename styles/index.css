@@ -1,5 +1,24 @@
 body { 
     font-family: Arial, sans-serif; 
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
+}
+
+.title{
+    .title {
+        font-family: Arial, sans-serif; 
+        display: flex;
+        justify-content: center;
+        align-items: center; /* Center vertically */
+        background-image: url(../images/wonder.png);
+        background-size: cover; /* Cover the entire div */
+        background-position: center; /* Center the background image */
+        width: 100%; /* Set to full width or a specific width */
+        height: 300px; /* Set a specific height to ensure the background is visible */
+        color: white; /* Change text color if needed for contrast */
+    }
+    
 }
     
 .wonder { 
@@ -14,6 +33,7 @@ body {
     display: flex; 
     flex-wrap: wrap; 
     gap: 20px; 
+    justify-content: center;
 }
     
 .wonder-list .wonder { 

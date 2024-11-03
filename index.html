@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>World Wonders</title>
     <link rel="stylesheet" href="./styles/index.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./scripts/common.js" type="text/javascript" defer></script>
+    <script src="./scripts/app.js" type="text/javascript" defer></script>
 </head>
+
 <body>
-    <h1>World Wonders</h1>
+    <div class="title">
+        <h1>World Wonders</h1>
+    </div>
+    <div class="dd-wrapper">
+        <select id="time-period-dd"></select>
+    </div>
     <div id="wonder-list" class="wonder-list"></div>
 
-    <script src="./scripts/app.js"></script>
 </body>
+
 </html>

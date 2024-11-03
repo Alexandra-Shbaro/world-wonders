@@ -1,30 +1,44 @@
-// Get the wonder ID from the URL query parameter
-const urlParams = new URLSearchParams(window.location.search);
-const wonderId = urlParams.get('id');
+const API_URL = 'https://www.world-wonders-api.org/v0/wonders';
 const wonderDetailsElement = document.getElementById('wonder-details');
 
-// Fetch and display details of a specific wonder
-async function fetchWonderDetails(wonderId) {
-    try {
-      const response = await axios.get(`https://www.world-wonders-api.org/v0/wonders/${wonderId}`);
-      const wonder = response.data;
-      displayWonderDetails(wonder);
-    } catch (error) {
-      console.error("Error fetching wonder details:", error);
-      wonderDetailsElement.innerHTML = "<p>Failed to load wonder details. Please try again later.</p>";
-    }
-  }
-  
+async function fetchWonderDetails() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const wonderIndex = urlParams.get('index'); 
 
-// Display the selected wonder's details
+  if (wonderIndex === null) {
+    wonderDetailsElement.innerHTML = "<p>Wonder not found.</p>";
+    return;
+  }
+
+  try {
+    const response = await axios.get(API_URL);
+    const wonders = response.data;
+
+    if (wonders[wonderIndex]) {
+      displayWonderDetails(wonders[wonderIndex]);
+    } else {
+      wonderDetailsElement.innerHTML = "<p>Wonder not found.</p>";
+    }
+  } catch (error) {
+    console.error("Error fetching wonder details:", error);
+    wonderDetailsElement.innerHTML = "<p>Failed to load wonder details. Please try again later.</p>";
+  }
+}
+
 function displayWonderDetails(wonder) {
+  let imageHTML = '';
+  if (wonder.links && wonder.links.images && wonder.links.images.length > 0) {
+    imageHTML = `<img src="${wonder.links.images[0]}" alt="${wonder.name}">`; // Display the first image
+  }
+
   wonderDetailsElement.innerHTML = `
-    <h1>${wonder.name}</h1>
-    <img src="${wonder.imageUrl || 'placeholder.jpg'}" alt="${wonder.name}">
-    <p><strong>Location:</strong> ${wonder.location}</p>
-    <p><strong>Description:</strong> ${wonder.longDescription || 'No description available.'}</p>
+    <h2>${wonder.name}</h2>
+    ${imageHTML} <!-- Only display the image if it exists -->
+    <p>${wonder.summary}</p>
+    <p>Location: ${wonder.location}</p>
+    <p>Time Period: ${wonder.time_period}</p>
+    <p>Build Year: ${wonder.build_year}</p>
   `;
 }
 
-// Fetch wonder details when the page loads
-fetchWonderDetails();
+fetchWonderDetails(); 

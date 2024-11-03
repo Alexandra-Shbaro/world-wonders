@@ -1,11 +1,11 @@
-// base API URL
+// API URL
 const API_URL = 'https://www.world-wonders-api.org/v0/wonders';
 const wonderListElement = document.getElementById('wonder-list');
 
-// async function that fetches data from the API
+//async function to fetch all wonders
 async function fetchWonders() {
   try {
-    const response = await axios.get(API_URL);
+    const response = await axios.get(API_URL); 
     displayWonders(response.data);
   } catch (error) {
     console.error("Error fetching wonders:", error);
@@ -13,25 +13,29 @@ async function fetchWonders() {
   }
 }
 
-// after fetching data, display the fetched data of the wonders on index
+//displaying wonders on html
 function displayWonders(wonders) {
-  wonders.forEach(wonder => {
-    const wonderElement = document.createElement('div');
-    wonderElement.classList.add('wonder');
-    wonderElement.innerHTML = `
-      <img src="${wonder.imageUrl || 'placeholder.jpg'}" alt="${wonder.name}">
-      <h2>${wonder.name}</h2>
-      <p>${wonder.shortDescription || 'No description available.'}</p>
-      <button onclick="viewWonderDetails('${wonder.id}')">View Details</button>
-    `;
-    wonderListElement.appendChild(wonderElement);
-  });
-}
-
-// redirect new wonder.html (next step)to the specified wonderID in the query parameter
-function viewWonderDetails(wonderId) {
-    window.location.href = `wonder.html?id=${wonderId}`;
+    wonderListElement.innerHTML = '';
+    wonders.forEach((wonder, index) => {
+      const wonderElement = document.createElement('div');
+      wonderElement.classList.add('wonder');
+  
+      let imagesHTML = '';
+      if (wonder.links && wonder.links.images && wonder.links.images.length > 0) {
+        imagesHTML = `<img src="${wonder.links.images[0]}" alt="${wonder.name}" />`;
+      } else {
+        console.warn(`No images found for: ${wonder.name}`);
+      }
+  
+      wonderElement.innerHTML = `
+        ${imagesHTML}
+        <h2>${wonder.name}</h2>
+        <p>${wonder.summary}</p>
+        <a href="wonder.html?index=${index}">View Details</a>
+      `;
+  
+      wonderListElement.appendChild(wonderElement);
+    });
   }
 
-// fetch wonders when the page loads
-fetchWonders();
+fetchWonders(); 

@@ -8,7 +8,7 @@ dd.addEventListener("change", () => {
   window.location.href = "?time_period=" + current_value
 })
 
-//async function to fetch all wonders
+// Async function to fetch all wonders
 async function fetchWonders() {
   try {
     const time_period = getQueryParam("time_period")
@@ -20,7 +20,7 @@ async function fetchWonders() {
   }
 }
 
-//async function to fetch dropdown filters
+// Async function to fetch dropdown filters
 async function fetchTimePeriods() {
   try {
     const response = await axios.get(BASE_URL + "/time-periods");
@@ -49,7 +49,7 @@ function setSelectedOption() {
   dd.value = selected_value
 }
 
-//displaying wonders on html
+// Displaying wonders on html
 function displayWonders(wonders) {
   wonderListElement.innerHTML = '';
   wonders.forEach((wonder) => {
@@ -67,9 +67,11 @@ function displayWonders(wonders) {
 
     wonderElement.innerHTML = `
         ${imagesHTML}
+        <div>
         <h2>${name}</h2>
         <p>${summary}</p>
-        <a href="wonder.html?name=${name}">View Details</a>
+        </div>
+        <a class="view-details" href="wonder.html?name=${name}">View Details</a>
       `;
 
     wonderListElement.appendChild(wonderElement);

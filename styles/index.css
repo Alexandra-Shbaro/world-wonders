@@ -1,44 +1,76 @@
-body { 
-    font-family: Arial, sans-serif; 
+body {
     box-sizing: border-box;
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
 }
 
-.title{
-    .title {
-        font-family: Arial, sans-serif; 
-        display: flex;
-        justify-content: center;
-        align-items: center; /* Center vertically */
-        background-image: url(../images/wonder.png);
-        background-size: cover; /* Cover the entire div */
-        background-position: center; /* Center the background image */
-        width: 100%; /* Set to full width or a specific width */
-        height: 300px; /* Set a specific height to ensure the background is visible */
-        color: white; /* Change text color if needed for contrast */
-    }
-    
+
+#time-period-dd {
+    padding: 7px;
+    font-size: 18px;
+    border-radius: 7px;
 }
-    
-.wonder { 
-    margin: 20px 0; 
-}
-    
-.wonder img { 
-    max-width: 200px; 
-    height: auto; 
-}
-.wonder-list { 
-    display: flex; 
-    flex-wrap: wrap; 
-    gap: 20px; 
+
+.dd-wrapper {
+    display: flex;
     justify-content: center;
+    padding: 20px;
 }
-    
-.wonder-list .wonder { 
-    width: calc(33% - 20px); 
-    border: 1px solid #ddd; 
-    padding: 10px;
-    border-radius: 5px; 
+
+.dd-wrapper div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.wonder {
+    padding: 15px;
+    max-width: 350px;
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.wonder img {
+    width: 100%;
+    max-height: 220px;
+    min-height: 220px;
+    height: auto;
+    border-radius: 6px;
+
+}
+
+.wonder p {
+    width: 100%;
+    overflow: hidden;
+    white-space: wrap;
+    text-overflow: ellipsis;
+}
+
+.view-details {
+    text-decoration: none;
+    background: #FF8343;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+    border-radius: 5px;
+    width: 90%;
+    transition: background 0.3s ease;
+}
+
+.view-details:hover {
+    background: #da6a32;
+}
+
+
+.wonder-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
 }

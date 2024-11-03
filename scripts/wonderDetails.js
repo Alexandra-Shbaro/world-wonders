@@ -28,12 +28,12 @@ function displayWonderDetails(wonder) {
   }
 
   wonderDetailsElement.innerHTML = `
+    ${imageHTML}
     <h2>${name}</h2>
-    ${imageHTML} <!-- Only display the image if it exists -->
     <p>${summary}</p>
-    <p>Location: ${location}</p>
-    <p>Time Period: ${time_period}</p>
-    <p>Build Year: ${build_year}</p>
+    <p><strong>Location:</strong> ${location}</p>
+    <p><strong>Time Period:</strong> ${time_period}</p>
+    <p><strong>Build Year:</strong> ${build_year}</p>
   `;
 }
 
